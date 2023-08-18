@@ -31,7 +31,7 @@ class TestCase extends Orchestra
             'prefix' => '',
         ]);
 
-        $migration = include __DIR__ . '/../database/migrations/create_volition_tables.php.stub';
+        $migration = include __DIR__.'/../database/migrations/create_volition_tables.php.stub';
         $migration->up();
     }
 }
