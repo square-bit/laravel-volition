@@ -5,14 +5,17 @@ namespace Squarebit\Volition\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Squarebit\Volition\Contracts\IsCondition;
 use Squarebit\Volition\Contracts\Volitional;
+use Squarebit\Volition\Traits\BelongToRule;
 
 /**
  * @property string $class
- * @property \Squarebit\Volition\Contracts\IsCondition $payload
+ * @property IsCondition $payload
  */
 class Condition extends Element
 {
     use HasFactory;
+    /** @use BelongToRule<Condition> */
+    use BelongToRule;
 
     protected $table = 'volition_conditions';
 

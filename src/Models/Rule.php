@@ -12,8 +12,11 @@ use Squarebit\Volition\Contracts\IsCondition;
 use Squarebit\Volition\Contracts\Volitional;
 
 /**
- * @property Collection<Condition> $conditions
- * @property Collection<Action> $actions
+ * @property int $id
+ * @property string $name
+ * @property class-string $applies_to
+ * @property Collection<int, Condition> $conditions
+ * @property Collection<int, Action> $actions
  *
  * @method static Builder<static> forClass(string $className)
  * @method static Builder<static> withName(string $name)
@@ -47,7 +50,7 @@ class Rule extends Model
     }
 
     /**
-     * @param  Builder<static>  $query
+     * @param Builder<static> $query
      * @return Builder<static>
      */
     public function scopeWithName(Builder $query, string $name): Builder
@@ -56,8 +59,8 @@ class Rule extends Model
     }
 
     /**
-     * @param  Builder<static>  $query
-     * @param  class-string  $className
+     * @param Builder<static> $query
+     * @param class-string $className
      * @return Builder<static>
      */
     public function scopeForClass(Builder $query, string $className): Builder
@@ -68,17 +71,17 @@ class Rule extends Model
     public function passes(Volitional $object): bool
     {
         return $this->conditions
-            ->reduce(fn (bool $carry, Condition $condition): bool => $carry && $condition->passes($object), true);
+            ->reduce(fn(bool $carry, Condition $condition): bool => $carry && $condition->passes($object), true);
     }
 
-    public function addCondition(IsCondition $condition)
+    public function addCondition(IsCondition $condition): static
     {
         $this->conditions()->save((new Condition())->condition($condition));
 
         return $this;
     }
 
-    public function addAction(IsAction $action)
+    public function addAction(IsAction $action): static
     {
         $this->actions()->save((new Action())->action($action));
 

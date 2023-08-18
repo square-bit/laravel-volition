@@ -2,19 +2,17 @@
 
 namespace Squarebit\Volition\Database\Factories;
 
-use Domains\Volition\Tests\Support\TestObject;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Squarebit\Volition\Models\Rule;
+use Squarebit\Volition\Tests\Support\TestObject;
 
+/**
+ * @extends Factory<Rule>
+ */
 class RuleFactory extends Factory
 {
     protected $model = Rule::class;
 
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
     public function definition(): array
     {
         return [

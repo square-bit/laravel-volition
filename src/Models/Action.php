@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Squarebit\Volition\Contracts\IsAction;
 use Squarebit\Volition\Contracts\Volitional;
+use Squarebit\Volition\Traits\BelongToRule;
 
 /**
  * @property string $class
@@ -16,6 +17,8 @@ use Squarebit\Volition\Contracts\Volitional;
 class Action extends Element
 {
     use HasFactory;
+    /** @use BelongToRule<Action> */
+    use BelongToRule;
 
     protected $table = 'volition_actions';
 
