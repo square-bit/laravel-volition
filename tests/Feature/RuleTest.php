@@ -94,7 +94,7 @@ test('it gets no action if none is applicable', function () {
 
     expect($testObj->action(SuffixAction::class))
         ->toBeNull()
-        ->and(fn() => $testObj->action(SuffixAction::class, throw: true))
+        ->and(fn () => $testObj->action(SuffixAction::class, throw: true))
         ->toThrow(ActionMissingException::class);
 });
 
@@ -105,6 +105,6 @@ test('it executes actions', function () {
 
     expect($testObj->executeAction(SuffixAction::class))->toBe('prop_valueSquarebit')
         ->and($testObj2->executeAction(SuffixAction::class))->toBeNull()
-        ->and(fn() => $testObj2->executeAction(SuffixAction::class, throw: true))->toThrow(ActionMissingException::class)
-        ->and(fn() => $testObj3->executeAction(PrefixAction::class))->toThrow(ActionExecutionException::class);
+        ->and(fn () => $testObj2->executeAction(SuffixAction::class, throw: true))->toThrow(ActionMissingException::class)
+        ->and(fn () => $testObj3->executeAction(PrefixAction::class))->toThrow(ActionExecutionException::class);
 });

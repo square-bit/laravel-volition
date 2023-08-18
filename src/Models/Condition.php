@@ -14,6 +14,7 @@ use Squarebit\Volition\Traits\BelongToRule;
 class Condition extends Element
 {
     use HasFactory;
+
     /** @use BelongToRule<Condition> */
     use BelongToRule;
 

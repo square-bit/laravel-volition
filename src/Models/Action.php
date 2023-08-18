@@ -5,7 +5,6 @@ namespace Squarebit\Volition\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Squarebit\Volition\Contracts\IsAction;
-use Squarebit\Volition\Contracts\Volitional;
 use Squarebit\Volition\Traits\BelongToRule;
 
 /**
@@ -17,6 +16,7 @@ use Squarebit\Volition\Traits\BelongToRule;
 class Action extends Element
 {
     use HasFactory;
+
     /** @use BelongToRule<Action> */
     use BelongToRule;
 

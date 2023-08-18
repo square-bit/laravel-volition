@@ -50,7 +50,7 @@ class Rule extends Model
     }
 
     /**
-     * @param Builder<static> $query
+     * @param  Builder<static>  $query
      * @return Builder<static>
      */
     public function scopeWithName(Builder $query, string $name): Builder
@@ -59,8 +59,8 @@ class Rule extends Model
     }
 
     /**
-     * @param Builder<static> $query
-     * @param class-string $className
+     * @param  Builder<static>  $query
+     * @param  class-string  $className
      * @return Builder<static>
      */
     public function scopeForClass(Builder $query, string $className): Builder
@@ -71,7 +71,7 @@ class Rule extends Model
     public function passes(Volitional $object): bool
     {
         return $this->conditions
-            ->reduce(fn(bool $carry, Condition $condition): bool => $carry && $condition->passes($object), true);
+            ->reduce(fn (bool $carry, Condition $condition): bool => $carry && $condition->passes($object), true);
     }
 
     public function addCondition(IsCondition $condition): static

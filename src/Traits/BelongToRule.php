@@ -3,7 +3,6 @@
 namespace Squarebit\Volition\Traits;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Squarebit\Volition\Models\Element;
 use Squarebit\Volition\Models\Rule;
 
 /**

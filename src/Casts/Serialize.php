@@ -6,7 +6,6 @@ use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use Illuminate\Database\Eloquent\Model;
 use Squarebit\Volition\Contracts\IsAction;
 use Squarebit\Volition\Contracts\IsCondition;
-use Squarebit\Volition\Models\Element;
 
 /**
  * @implements CastsAttributes<IsCondition|IsAction, IsCondition|IsAction>
