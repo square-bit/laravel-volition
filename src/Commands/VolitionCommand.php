@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace Squarebit\Volition\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class VolitionCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'laravel-volition';
 
     public $description = 'My command';
 
