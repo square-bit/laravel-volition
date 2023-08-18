@@ -3,8 +3,6 @@
 namespace Squarebit\Volition\Exception;
 
 use Exception;
-use Squarebit\Volition\Contracts\IsAction;
-use Squarebit\Volition\Contracts\Volitional;
 
 class ActionMissingException extends Exception
 {

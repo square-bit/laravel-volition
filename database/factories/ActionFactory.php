@@ -18,7 +18,7 @@ class ActionFactory extends Factory
     public function definition(): array
     {
         return [
-            'rule_id' => fn() => RuleFactory::new()->create()->id,
+            'rule_id' => fn () => RuleFactory::new()->create()->id,
             'active' => true,
         ];
     }
