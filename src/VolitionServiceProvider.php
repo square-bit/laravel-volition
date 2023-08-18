@@ -4,7 +4,6 @@ namespace Squarebit\Volition;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Squarebit\Volition\Commands\VolitionCommand;
 
 class VolitionServiceProvider extends PackageServiceProvider
 {
@@ -19,7 +18,6 @@ class VolitionServiceProvider extends PackageServiceProvider
             ->name('laravel-volition')
             ->hasConfigFile()
             ->hasViews()
-            ->hasMigration('create_laravel-volition_table')
-            ->hasCommand(VolitionCommand::class);
+            ->hasMigration('create_laravel-volition_table');
     }
 }

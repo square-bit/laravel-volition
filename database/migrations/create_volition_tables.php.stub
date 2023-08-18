@@ -1,0 +1,50 @@
+<?php
+
+namespace Squarebit\Volition\Database\Migrations;
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+use Squarebit\Volition\Models\Rule;
+
+return new class extends Migration {
+    public function up(): void
+    {
+        Schema::create('volition_rules', function (Blueprint $table) {
+            $table->id();
+            $table->string('name')->unique();
+            $table->string('applies_to');
+
+            $table->timestamps();
+        });
+
+        Schema::create('volition_conditions', function (Blueprint $table) {
+            $table->id();
+            $table->foreignIdFor(Rule::class)->constrained('volition_rules');
+            $table->boolean('active')->default(true);
+            $table->string('class');
+            $table->text('payload');
+
+            $table->timestamps();
+        });
+
+        Schema::create('volition_actions', function (Blueprint $table) {
+            $table->id();
+            $table->foreignIdFor(Rule::class)->constrained('volition_rules');
+            $table->boolean('active')->default(true);
+            $table->string('class');
+            $table->text('payload');
+
+            $table->timestamps();
+
+            $table->unique(['rule_id', 'class']);
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists('volition_conditions');
+        Schema::dropIfExists('volition_actions');
+        Schema::dropIfExists('volition_rules');
+    }
+};
