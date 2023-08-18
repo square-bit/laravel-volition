@@ -5,17 +5,11 @@ namespace Squarebit\Volition\Traits;
 use Illuminate\Support\Collection;
 use Squarebit\Volition\Contracts\IsAction;
 use Squarebit\Volition\Exception\ActionMissingException;
-use Squarebit\Volition\Facades\Volition;
 use Squarebit\Volition\Models\Rule;
 
 trait HasVolition
 {
     protected static ?Collection $allRules = null;
-
-    public static function registerVolition(): void
-    {
-        Volition::registerVolitionals(static::class);
-    }
 
     public static function resetRulesCache(): void
     {

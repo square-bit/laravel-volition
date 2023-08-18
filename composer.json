@@ -63,9 +63,6 @@
             "providers": [
                 "Squarebit\\Volition\\VolitionServiceProvider"
             ],
-            "aliases": {
-                "Volitions": "Squarebit\\Volition\\Facades\\Volition"
-            }
         }
     },
     "minimum-stability": "stable",

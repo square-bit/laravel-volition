@@ -26,11 +26,6 @@ class Action extends Element
         return $this;
     }
 
-    public function execute(Volitional $object): mixed
-    {
-        return $this->payload->execute($object);
-    }
-
     /**
      * @param  Builder<static>  $query
      * @param  class-string<\Squarebit\Volition\Contracts\IsAction>  $class

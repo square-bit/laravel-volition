@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Squarebit\Volition\Contracts\IsCondition;
 use Squarebit\Volition\Models\Condition;
 
+/**
+ * @extends Factory<Condition>
+ */
 class ConditionFactory extends Factory
 {
     protected $model = Condition::class;
