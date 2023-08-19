@@ -62,7 +62,7 @@
         "laravel": {
             "providers": [
                 "Squarebit\\Volition\\VolitionServiceProvider"
-            ],
+            ]
         }
     },
     "minimum-stability": "stable",
