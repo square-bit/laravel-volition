@@ -21,4 +21,9 @@ class SuffixAction implements IsAction
     {
         return $object->property.$this->suffix;
     }
+
+    public function __toString(): string
+    {
+        return __('Suffix') . ': ' . $this->suffix;
+    }
 }

@@ -5,6 +5,7 @@ namespace Squarebit\Volition\Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Squarebit\Volition\Contracts\IsAction;
 use Squarebit\Volition\Models\Action;
+use Squarebit\Volition\Tests\Support\TestObject;
 
 /**
  * @extends Factory<Action>
@@ -16,7 +17,7 @@ class ActionFactory extends Factory
     public function definition(): array
     {
         return [
-            'rule_id' => fn () => RuleFactory::new()->create()->id,
+            'rule_id' => fn () => RuleFactory::new()->forObject(TestObject::class)->create()->id,
             'active' => true,
         ];
     }

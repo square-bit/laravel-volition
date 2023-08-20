@@ -12,4 +12,6 @@ interface IsCondition
     public function validate(Volitional $object, bool $isValid): void;
 
     public function passes(Volitional $object): bool;
+
+    public function __toString();
 }

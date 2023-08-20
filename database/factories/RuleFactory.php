@@ -17,7 +17,6 @@ class RuleFactory extends Factory
     {
         return [
             'name' => fake()->name,
-            'applies_to' => TestObject::class,
         ];
     }
 

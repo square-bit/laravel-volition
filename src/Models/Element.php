@@ -9,7 +9,7 @@ use Squarebit\Volition\Casts\Serialize;
 /**
  * @property int $id
  * @property class-string $class
- * @property classObj $payload
+ * @property object $payload
  */
 abstract class Element extends Model
 {
