@@ -24,6 +24,6 @@ class SuffixAction implements IsAction
 
     public function __toString(): string
     {
-        return __('Suffix') . ': ' . $this->suffix;
+        return __('Suffix').': '.$this->suffix;
     }
 }

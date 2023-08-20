@@ -4,7 +4,6 @@ namespace Squarebit\Volition\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Squarebit\Volition\Models\Rule;
-use Squarebit\Volition\Tests\Support\TestObject;
 
 /**
  * @extends Factory<Rule>
