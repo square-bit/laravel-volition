@@ -2,7 +2,6 @@
 
 namespace Squarebit\Volition\Models;
 
-use classObj;
 use Illuminate\Database\Eloquent\Model;
 use Squarebit\Volition\Casts\Serialize;
 
