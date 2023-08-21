@@ -13,7 +13,7 @@ class VolitionServiceProvider extends PackageServiceProvider
             ->name('laravel-volition')
             ->hasConfigFile()
             ->hasViews()
-            ->hasMigration('create_laravel-volition_table')
+            ->hasMigration('create_laravel-volition_tables')
             ->runsMigrations();
     }
 }
