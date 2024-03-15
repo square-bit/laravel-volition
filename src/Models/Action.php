@@ -12,10 +12,10 @@ use Squarebit\Volition\Traits\BelongToRule;
  */
 class Action extends Element
 {
-    use HasFactory;
-
     /** @use BelongToRule<Action> */
     use BelongToRule;
+
+    use HasFactory;
 
     protected $table = 'volition_actions';
 
