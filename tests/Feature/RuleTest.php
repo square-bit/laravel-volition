@@ -9,6 +9,7 @@ use Squarebit\Volition\Tests\Support\ObjectPropertyCondition;
 use Squarebit\Volition\Tests\Support\PrefixAction;
 use Squarebit\Volition\Tests\Support\SuffixAction;
 use Squarebit\Volition\Tests\Support\TestObject;
+use Squarebit\Volition\Tests\Support\TestObjectB;
 
 beforeEach(function () {
     TestObject::resetRulesCache();
@@ -45,10 +46,10 @@ beforeEach(function () {
         ->addAction($prefixAction);
 
     RuleFactory::new(['name' => 'ruleE'])
-        ->forObject(Model::class)
+        ->forObject(TestObjectB::class)
         ->create()
-        ->addCondition($condition)
         ->addAction($prefixAction);
+
 });
 
 test('it resets rule cache', function () {
@@ -96,6 +97,13 @@ test('it gets no action if none is applicable', function () {
         ->toBeNull()
         ->and(fn () => $testObj->action(SuffixAction::class, throw: true))
         ->toThrow(ActionMissingException::class);
+});
+
+test('it gets actions with no conditions', function () {
+    $testObj = new TestObjectB(property: 'some_other_prop_value');
+
+    expect($testObj->action(PrefixAction::class, forRule: 'ruleE'))
+        ->not->toBeNull();
 });
 
 test('it ignores disabled actions', function () {
