@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Database\Eloquent\Model;
 use Squarebit\Volition\Database\Factories\RuleFactory;
 use Squarebit\Volition\Exception\ActionExecutionException;
 use Squarebit\Volition\Exception\ActionMissingException;
