@@ -14,6 +14,7 @@ class VolitionServiceProvider extends PackageServiceProvider
             ->hasConfigFile()
             ->hasViews()
             ->hasMigration('create_laravel-volition_tables')
+            ->hasMigration('rename_active-column-in-volition-rules_table')
             ->runsMigrations();
     }
 }
