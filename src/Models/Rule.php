@@ -71,8 +71,8 @@ class Rule extends Model
     public function passes(Volitional $object): bool
     {
         return $this->conditions
-                ->filter(fn (Condition $condition) => $condition->enabled)
-                ->reduce(fn (bool $carry, Condition $condition): bool => $carry && $condition->passes($object), true);
+            ->filter(fn (Condition $condition) => $condition->enabled)
+            ->reduce(fn (bool $carry, Condition $condition): bool => $carry && $condition->passes($object), true);
     }
 
     public function addCondition(IsCondition $condition, bool $enabled = true): static
