@@ -70,20 +70,24 @@ class Rule extends Model
 
     public function passes(Volitional $object): bool
     {
-        return $this->conditions
-            ->reduce(fn (bool $carry, Condition $condition): bool => $carry && $condition->passes($object), true);
+        return $this->conditions->count() > 0 &&
+            $this->conditions
+                ->filter(fn (Condition $condition) => $condition->enabled)
+                ->reduce(fn (bool $carry, Condition $condition): bool => $carry && $condition->passes($object), true);
     }
 
-    public function addCondition(IsCondition $condition): static
+    public function addCondition(IsCondition $condition, bool $enabled = true): static
     {
-        $this->conditions()->save((new Condition())->condition($condition));
+        $this->conditions()
+            ->save((new Condition())->condition($condition)->disabled(! $enabled));
 
         return $this;
     }
 
-    public function addAction(IsAction $action): static
+    public function addAction(IsAction $action, bool $enabled = true): static
     {
-        $this->actions()->save((new Action())->action($action));
+        $this->actions()
+            ->save((new Action())->action($action)->disabled(! $enabled));
 
         return $this;
     }

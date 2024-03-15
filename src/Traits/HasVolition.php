@@ -5,6 +5,7 @@ namespace Squarebit\Volition\Traits;
 use Illuminate\Support\Collection;
 use Squarebit\Volition\Contracts\IsAction;
 use Squarebit\Volition\Exception\ActionMissingException;
+use Squarebit\Volition\Models\Action;
 use Squarebit\Volition\Models\Rule;
 
 trait HasVolition
@@ -43,9 +44,14 @@ trait HasVolition
      */
     public function actions(string|Rule $forRule = null): Collection
     {
-        return $forRule
-            ? $this->rule($forRule)?->actions->pluck('payload') ?? collect()
-            : $this->rules()->pluck('actions')->flatten()->pluck('payload')->unique() ?? collect();
+        $actions = $forRule
+            ? $this->rule($forRule)?->actions
+            : $this->rules()->pluck('actions')->flatten();
+
+        return $actions
+            ?->filter(fn (Action $action): bool => $action->enabled)
+            ->pluck('payload')
+            ->unique() ?? collect();
     }
 
     /**
@@ -54,9 +60,9 @@ trait HasVolition
      * @param  class-string<TActionClass>  $ofClass
      * @return TActionClass|null
      */
-    public function action(string $ofClass, bool $throw = false): ?IsAction
+    public function action(string $ofClass, string $forRule = null, bool $throw = false): ?IsAction
     {
-        $action = $this->actions()->firstWhere(fn (IsAction $action) => $action instanceof $ofClass);
+        $action = $this->actions($forRule)->firstWhere(fn (IsAction $action) => $action instanceof $ofClass);
 
         throw_if(
             $action === null && $throw,
@@ -70,8 +76,8 @@ trait HasVolition
     /**
      * @param  class-string<\Squarebit\Volition\Contracts\IsAction>  $actionClass
      */
-    public function executeAction(string $actionClass, bool $throw = false): mixed
+    public function executeAction(string $actionClass, string $forRule = null, bool $throw = false): mixed
     {
-        return $this->action($actionClass, $throw)?->execute($this);
+        return $this->action($actionClass, $forRule, $throw)?->execute($this);
     }
 }

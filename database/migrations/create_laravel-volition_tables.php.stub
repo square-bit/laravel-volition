@@ -20,8 +20,8 @@ return new class extends Migration {
 
         Schema::create('volition_conditions', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Rule::class)->constrained('volition_rules');
-            $table->boolean('active')->default(true);
+            $table->foreignIdFor(Rule::class)->constrained('volition_rules')->cascadeOnDelete();
+            $table->boolean('enabled')->default(true);
             $table->string('class');
             $table->text('payload');
 
@@ -30,8 +30,8 @@ return new class extends Migration {
 
         Schema::create('volition_actions', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Rule::class)->constrained('volition_rules');
-            $table->boolean('active')->default(true);
+            $table->foreignIdFor(Rule::class)->constrained('volition_rules')->cascadeOnDelete();
+            $table->boolean('enabled')->default(true);
             $table->string('class');
             $table->text('payload');
 

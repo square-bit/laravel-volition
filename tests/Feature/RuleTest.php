@@ -26,7 +26,7 @@ beforeEach(function () {
         ->addAction($prefixAction)
         ->addAction($suffixAction);
 
-    RuleFactory::new(['name' => 'ruleB'])
+    $this->ruleB = RuleFactory::new(['name' => 'ruleB'])
         ->forObject(TestObject::class)
         ->create()
         ->addCondition($condition)
@@ -95,6 +95,18 @@ test('it gets no action if none is applicable', function () {
     expect($testObj->action(SuffixAction::class))
         ->toBeNull()
         ->and(fn () => $testObj->action(SuffixAction::class, throw: true))
+        ->toThrow(ActionMissingException::class);
+});
+
+test('it ignores disabled actions', function () {
+    $this->ruleB
+        ->addAction(new PrefixAction(prefix: 'Squarebit'), enabled: false);
+
+    $testObj = new TestObject(property: 'prop_value');
+
+    expect($testObj->action(PrefixAction::class, forRule: 'ruleB'))
+        ->toBeNull()
+        ->and(fn () => $testObj->action(PrefixAction::class, forRule: 'ruleB', throw: true))
         ->toThrow(ActionMissingException::class);
 });
 

@@ -18,14 +18,14 @@ class ActionFactory extends Factory
     {
         return [
             'rule_id' => fn () => RuleFactory::new()->forObject(TestObject::class)->create()->id,
-            'active' => true,
+            'enabled' => true,
         ];
     }
 
     public function inactive(): ActionFactory
     {
         return $this->state(fn (array $attributes) => [
-            'active' => false,
+            'enabled' => false,
         ]);
     }
 

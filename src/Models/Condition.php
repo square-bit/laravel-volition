@@ -7,10 +7,6 @@ use Squarebit\Volition\Contracts\IsCondition;
 use Squarebit\Volition\Contracts\Volitional;
 use Squarebit\Volition\Traits\BelongToRule;
 
-/**
- * @property string $class
- * @property IsCondition $payload
- */
 class Condition extends Element
 {
     use HasFactory;

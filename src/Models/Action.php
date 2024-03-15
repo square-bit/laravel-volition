@@ -8,9 +8,6 @@ use Squarebit\Volition\Contracts\IsAction;
 use Squarebit\Volition\Traits\BelongToRule;
 
 /**
- * @property string $class
- * @property IsAction $payload
- *
  * @method static Builder<static> forClass(string $class)
  */
 class Action extends Element

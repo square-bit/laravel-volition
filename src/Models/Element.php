@@ -9,6 +9,7 @@ use Squarebit\Volition\Casts\Serialize;
  * @property int $id
  * @property class-string $class
  * @property object $payload
+ * @property bool $enabled
  */
 abstract class Element extends Model
 {
@@ -16,6 +17,7 @@ abstract class Element extends Model
 
     protected $casts = [
         'payload' => Serialize::class,
+        'enabled' => 'bool',
     ];
 
     public static function boot(): void
@@ -24,5 +26,12 @@ abstract class Element extends Model
         static::saving(function (Element $model): void {
             $model->class = ($model->payload)::class;
         });
+    }
+
+    public function disabled(bool $disabled = true): static
+    {
+        $this->enabled = ! $disabled;
+
+        return $this;
     }
 }
