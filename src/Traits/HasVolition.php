@@ -19,7 +19,9 @@ trait HasVolition
 
     public function allRules(): Collection
     {
-        return self::$allRules ??= Rule::forClass($this::class)->get();
+        return self::$allRules ??= Rule::with(['conditions', 'actions'])
+            ->forClass($this::class)
+            ->get();
     }
 
     /**
