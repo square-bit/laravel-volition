@@ -78,7 +78,7 @@ class Rule extends Model
     public function addCondition(IsCondition $condition, bool $enabled = true): static
     {
         $this->conditions()
-            ->save((new Condition())->condition($condition)->disabled(! $enabled));
+            ->save((new Condition)->condition($condition)->disabled(! $enabled));
 
         return $this;
     }
@@ -86,7 +86,7 @@ class Rule extends Model
     public function addAction(IsAction $action, bool $enabled = true): static
     {
         $this->actions()
-            ->save((new Action())->action($action)->disabled(! $enabled));
+            ->save((new Action)->action($action)->disabled(! $enabled));
 
         return $this;
     }

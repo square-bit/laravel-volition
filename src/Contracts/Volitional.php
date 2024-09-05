@@ -2,6 +2,4 @@
 
 namespace Squarebit\Volition\Contracts;
 
-interface Volitional
-{
-}
+interface Volitional {}
