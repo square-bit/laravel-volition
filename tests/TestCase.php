@@ -35,5 +35,7 @@ class TestCase extends Orchestra
         $migration->up();
         $migration = include __DIR__.'/../database/migrations/rename_active-column-in-volition-rules_table.php.stub';
         $migration->up();
+        $migration = include __DIR__.'/../database/migrations/remove_class-in-volition-rules_table.php.stub';
+        $migration->up();
     }
 }

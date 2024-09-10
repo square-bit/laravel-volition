@@ -4,12 +4,15 @@ namespace Squarebit\Volition\Tests\Support;
 
 use Squarebit\Volition\Contracts\IsAction;
 use Squarebit\Volition\Exception\ActionExecutionException;
+use Squarebit\Volition\Traits\VolitionElement;
 
 /**
  * @template-implements \Squarebit\Volition\Contracts\IsAction<string>
  */
 class PrefixAction implements IsAction
 {
+    use VolitionElement;
+
     public function __construct(
         public string $prefix = ''
     ) {

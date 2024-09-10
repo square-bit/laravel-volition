@@ -4,7 +4,7 @@ namespace Squarebit\Volition\Contracts;
 
 use Squarebit\Volition\Exception\ConditionException;
 
-interface IsCondition
+interface IsCondition extends IsElement
 {
     /**
      * @throws ConditionException

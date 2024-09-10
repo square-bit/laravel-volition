@@ -1,11 +1,16 @@
 <?php
 
 use Squarebit\Volition\Database\Factories\ConditionFactory;
+use Squarebit\Volition\Facades\Volition;
 use Squarebit\Volition\Models\Condition;
 use Squarebit\Volition\Models\Rule;
 use Squarebit\Volition\Tests\Support\ObjectPropertyCondition;
 
 beforeEach(function () {
+    Volition::registerConditions([
+        ObjectPropertyCondition::class,
+    ]);
+
     /** @var Condition $conditionElement */
     $this->conditionElement = ConditionFactory::new()->make();
     $this->condition = new ObjectPropertyCondition(property: 'prop_name', value: 'prop_value');

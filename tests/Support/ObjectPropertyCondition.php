@@ -4,9 +4,12 @@ namespace Squarebit\Volition\Tests\Support;
 
 use Squarebit\Volition\Contracts\IsCondition;
 use Squarebit\Volition\Contracts\Volitional;
+use Squarebit\Volition\Traits\VolitionElement;
 
 class ObjectPropertyCondition implements IsCondition
 {
+    use VolitionElement;
+
     public function __construct(
         public string $property,
         public mixed $value,

@@ -3,6 +3,7 @@
 use Squarebit\Volition\Database\Factories\RuleFactory;
 use Squarebit\Volition\Exception\ActionExecutionException;
 use Squarebit\Volition\Exception\ActionMissingException;
+use Squarebit\Volition\Facades\Volition;
 use Squarebit\Volition\Models\Rule;
 use Squarebit\Volition\Tests\Support\ObjectPropertyCondition;
 use Squarebit\Volition\Tests\Support\PrefixAction;
@@ -11,6 +12,14 @@ use Squarebit\Volition\Tests\Support\TestObject;
 use Squarebit\Volition\Tests\Support\TestObjectB;
 
 beforeEach(function () {
+    Volition::registerConditions([
+        ObjectPropertyCondition::class,
+    ]);
+    Volition::registerActions([
+        PrefixAction::class,
+        SuffixAction::class,
+    ]);
+
     TestObject::resetRulesCache();
 
     $condition = new ObjectPropertyCondition(property: 'property', value: 'prop_value');

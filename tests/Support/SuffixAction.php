@@ -3,12 +3,15 @@
 namespace Squarebit\Volition\Tests\Support;
 
 use Squarebit\Volition\Contracts\IsAction;
+use Squarebit\Volition\Traits\VolitionElement;
 
 /**
  * @template-implements \Squarebit\Volition\Contracts\IsAction<string>
  */
 class SuffixAction implements IsAction
 {
+    use VolitionElement;
+
     public function __construct(
         public string $suffix = ''
     ) {

@@ -2,7 +2,7 @@
 
 namespace Squarebit\Volition\Contracts;
 
-interface IsAction
+interface IsAction extends IsElement
 {
     public function execute(Volitional $object): mixed;
 
