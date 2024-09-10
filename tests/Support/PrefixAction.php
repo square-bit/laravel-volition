@@ -15,8 +15,7 @@ class PrefixAction implements IsAction
 
     public function __construct(
         public string $prefix = ''
-    ) {
-    }
+    ) {}
 
     /**
      * @param  TestObject  $object

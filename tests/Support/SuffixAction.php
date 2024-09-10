@@ -14,8 +14,7 @@ class SuffixAction implements IsAction
 
     public function __construct(
         public string $suffix = ''
-    ) {
-    }
+    ) {}
 
     /**
      * @param  TestObject  $object

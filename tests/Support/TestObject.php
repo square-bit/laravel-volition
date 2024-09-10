@@ -11,6 +11,5 @@ class TestObject implements Volitional
 
     public function __construct(
         public string $property,
-    ) {
-    }
+    ) {}
 }
