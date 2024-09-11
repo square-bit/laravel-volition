@@ -9,7 +9,7 @@ use Squarebit\Volition\Models\Rule;
 
 class UpgradeCommand extends Command
 {
-    protected $signature = 'sb-volition:upgrade';
+    protected $signature = 'volition:upgrade';
 
     protected $description = 'Performs any necessary upgrade activities';
 

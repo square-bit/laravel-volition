@@ -3,6 +3,7 @@
 namespace Squarebit\Volition;
 
 use Illuminate\Support\Arr;
+use ReflectionClass;
 use RuntimeException;
 use Squarebit\Volition\Contracts\IsAction;
 use Squarebit\Volition\Contracts\IsCondition;
@@ -56,6 +57,7 @@ class Volition
         /** @var array<int, class-string<IsCondition>> $conditions */
         $conditions = Arr::wrap($conditions);
         foreach ($conditions as $element) {
+            $this->isA($element, IsCondition::class);
             $this->conditions[$element::getElementType()] = $element;
         }
 
@@ -71,9 +73,20 @@ class Volition
         /** @var array<int, class-string<IsAction>> $actions */
         $actions = Arr::wrap($actions);
         foreach ($actions as $element) {
-            $this->conditions[$element::getElementType()] = $element;
+            $this->isA($element, IsAction::class);
+            $this->actions[$element::getElementType()] = $element;
         }
 
         return $this;
+    }
+
+    protected function isA(string $className, string $interfaceName): void
+    {
+        $class = new ReflectionClass($className);
+        throw_unless(
+            $class->implementsInterface($interfaceName),
+            RuntimeException::class,
+            'Element is not an instance of '.$interfaceName
+        );
     }
 }

@@ -19,7 +19,18 @@ test('registers Actions', function () {
         SuffixAction::class,
     ]);
 
-    expect(Volition::getConditions())->toHaveCount(2);
+    expect(Volition::getActions())->toHaveCount(2);
     expect(Volition::getElement(SuffixAction::getElementType()))
         ->toBe(SuffixAction::class);
+});
+
+test('fails to registers Actions as Conditions or vice-versa', function () {
+   expect(fn() => Volition::registerConditions([
+        PrefixAction::class,
+        SuffixAction::class,
+    ]))->toThrow(Exception::class);
+
+    expect(fn() => Volition::registerActions([
+        ObjectPropertyCondition::class,
+    ]))->toThrow(Exception::class);
 });

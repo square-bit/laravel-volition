@@ -28,9 +28,10 @@ class PayloadCast implements CastsAttributes
         }
 
         $payload = json_decode($value, true);
+        /** @var IsCondition|IsAction $payloadClass */
         $payloadClass = Volition::getElement($payload['type'], throw: true);
 
-        return new $payloadClass(...$payload['data']);
+        return $payloadClass::fromPayload($payload['data']);
     }
 
     /**
