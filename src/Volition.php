@@ -21,7 +21,6 @@ class Volition
      */
     public function getElement(string $elementType, bool $throw = false): ?string
     {
-        // @phpstan-ignore-next-line
         $payloadClass = $this->conditions[$elementType] ?? $this->actions[$elementType] ?? null;
         throw_if(
             $payloadClass === null && $throw,
