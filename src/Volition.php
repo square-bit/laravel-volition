@@ -7,6 +7,7 @@ use ReflectionClass;
 use RuntimeException;
 use Squarebit\Volition\Contracts\IsAction;
 use Squarebit\Volition\Contracts\IsCondition;
+use Throwable;
 
 class Volition
 {
@@ -18,6 +19,7 @@ class Volition
 
     /**
      * @return class-string<IsCondition|IsAction>|null
+     * @throws Throwable
      */
     public function getElement(string $elementType, bool $throw = false): ?string
     {
