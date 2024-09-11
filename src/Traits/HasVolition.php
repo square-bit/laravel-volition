@@ -44,7 +44,7 @@ trait HasVolition
      *
      * @return Collection<\Squarebit\Volition\Contracts\IsAction>
      */
-    public function actions(string|Rule $forRule = null): Collection
+    public function actions(string|Rule|null $forRule = null): Collection
     {
         $actions = $forRule
             ? $this->rule($forRule)?->actions
@@ -62,7 +62,7 @@ trait HasVolition
      * @param  class-string<TActionClass>  $ofClass
      * @return TActionClass|null
      */
-    public function action(string $ofClass, string $forRule = null, bool $throw = false): ?IsAction
+    public function action(string $ofClass, ?string $forRule = null, bool $throw = false): ?IsAction
     {
         $action = $this->actions($forRule)->firstWhere(fn (IsAction $action) => $action instanceof $ofClass);
 
@@ -78,7 +78,7 @@ trait HasVolition
     /**
      * @param  class-string<\Squarebit\Volition\Contracts\IsAction>  $actionClass
      */
-    public function executeAction(string $actionClass, string $forRule = null, bool $throw = false): mixed
+    public function executeAction(string $actionClass, ?string $forRule = null, bool $throw = false): mixed
     {
         return $this->action($actionClass, $forRule, $throw)?->execute($this);
     }

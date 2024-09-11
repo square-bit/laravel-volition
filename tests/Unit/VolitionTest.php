@@ -25,12 +25,12 @@ test('registers Actions', function () {
 });
 
 test('fails to registers Actions as Conditions or vice-versa', function () {
-   expect(fn() => Volition::registerConditions([
+    expect(fn () => Volition::registerConditions([
         PrefixAction::class,
         SuffixAction::class,
     ]))->toThrow(Exception::class);
 
-    expect(fn() => Volition::registerActions([
+    expect(fn () => Volition::registerActions([
         ObjectPropertyCondition::class,
     ]))->toThrow(Exception::class);
 });
