@@ -17,7 +17,7 @@ class Volition
     protected array $actions = [];
 
     /**
-     * @return  class-string<IsCondition|IsAction>|null
+     * @return class-string<IsCondition|IsAction>|null
      */
     public function getElement(string $elementType, bool $throw = false): ?string
     {
@@ -32,7 +32,7 @@ class Volition
     }
 
     /**
-     * @return  array<int, class-string<IsCondition>>
+     * @return array<int, class-string<IsCondition>>
      */
     public function getConditions(): array
     {
@@ -40,7 +40,7 @@ class Volition
     }
 
     /**
-     * @return  array<int, class-string<IsAction>>
+     * @return array<int, class-string<IsAction>>
      */
     public function getActions(): array
     {
