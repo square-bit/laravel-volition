@@ -7,7 +7,7 @@ interface IsElement
     public static function getElementType(): string;
 
     /**
-     * @param array<string, mixed> $payload
+     * @param  array<string, mixed>  $payload
      */
     public static function fromPayload(array $payload): static;
 

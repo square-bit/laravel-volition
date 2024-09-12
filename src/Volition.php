@@ -19,6 +19,7 @@ class Volition
 
     /**
      * @return class-string<IsCondition|IsAction>|null
+     *
      * @throws Throwable
      */
     public function getElement(string $elementType, bool $throw = false): ?string
