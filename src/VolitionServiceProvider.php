@@ -8,6 +8,13 @@ use Squarebit\Volition\Commands\UpgradeCommand;
 
 class VolitionServiceProvider extends PackageServiceProvider
 {
+    public function register()
+    {
+        $this->app->singleton(Volition::class, fn () => new Volition());
+
+        return parent::register();
+    }
+
     public function configurePackage(Package $package): void
     {
         $package
