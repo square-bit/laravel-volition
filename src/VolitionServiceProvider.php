@@ -10,7 +10,7 @@ class VolitionServiceProvider extends PackageServiceProvider
 {
     public function register()
     {
-        $this->app->singleton(Volition::class, fn () => new Volition());
+        $this->app->singleton(Volition::class, fn () => new Volition);
 
         return parent::register();
     }

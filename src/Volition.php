@@ -88,7 +88,7 @@ class Volition
         throw_unless(
             $class->implementsInterface($interfaceName),
             RuntimeException::class,
-            $className. ' is not an instance of '.$interfaceName
+            $className.' is not an instance of '.$interfaceName
         );
     }
 }
