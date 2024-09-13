@@ -2,17 +2,22 @@
 
 namespace Squarebit\Volition;
 
+use Spatie\LaravelPackageTools\Exceptions\InvalidPackage;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Squarebit\Volition\Commands\UpgradeCommand;
 
 class VolitionServiceProvider extends PackageServiceProvider
 {
-    public function register()
+    /**
+     * @throws InvalidPackage
+     */
+    public function register(): self
     {
         $this->app->singleton(Volition::class, fn () => new Volition);
+        parent::register();
 
-        return parent::register();
+        return $this;
     }
 
     public function configurePackage(Package $package): void
