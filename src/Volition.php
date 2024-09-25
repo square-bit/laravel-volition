@@ -59,7 +59,7 @@ class Volition
         /** @var array<int, class-string<IsCondition>> $conditions */
         $conditions = Arr::wrap($conditions);
         foreach ($conditions as $element) {
-            $this->classStringImplements($element, IsCondition::class);
+            $this->checkClassStringImplements($element, IsCondition::class);
             $this->conditions[$element::getElementType()] = $element;
         }
 
@@ -75,14 +75,14 @@ class Volition
         /** @var array<int, class-string<IsAction>> $actions */
         $actions = Arr::wrap($actions);
         foreach ($actions as $element) {
-            $this->classStringImplements($element, IsAction::class);
+            $this->checkClassStringImplements($element, IsAction::class);
             $this->actions[$element::getElementType()] = $element;
         }
 
         return $this;
     }
 
-    protected function classStringImplements(string $className, string $interfaceName): void
+    protected function checkClassStringImplements(string $className, string $interfaceName): void
     {
         $class = new ReflectionClass($className);
         throw_unless(

@@ -20,6 +20,13 @@ beforeEach(function () {
     $this->actionElement->action($this->action);
 });
 
+test('it finds actions of a certain type', function () {
+    $this->actionElement->save();
+
+    expect(Action::query()->forType(SuffixAction::class)->count())->toBe(0)
+        ->and(Action::query()->forType(PrefixAction::class)->count())->toBe(1);
+});
+
 test('it creates a action', function () {
     expect($this->actionElement)
         ->save()->toBeTrue()

@@ -3,6 +3,7 @@
 namespace Squarebit\Volition\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Builder;
 use RuntimeException;
 use Squarebit\Volition\Contracts\IsAction;
 use Squarebit\Volition\Facades\Volition;
@@ -28,5 +29,15 @@ class Action extends Element
         $this->payload = $action;
 
         return $this;
+    }
+
+    /**
+     * @param  Builder<static>  $query
+     * @param  class-string<\Squarebit\Volition\Contracts\IsAction>  $class
+     * @return Builder<static>
+     */
+    public function scopeForType(Builder $query, string $class): Builder
+    {
+        return $query->where('payload->type', $class::getElementType());
     }
 }
