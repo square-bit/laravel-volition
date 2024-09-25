@@ -2,8 +2,8 @@
 
 namespace Squarebit\Volition\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use RuntimeException;
 use Squarebit\Volition\Contracts\IsAction;
 use Squarebit\Volition\Facades\Volition;
