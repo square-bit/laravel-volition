@@ -5,7 +5,8 @@ namespace Squarebit\Volition\Contracts;
 use Illuminate\Database\Eloquent\Collection;
 use Squarebit\Volition\Models\Rule;
 
-interface Volitional {
+interface Volitional
+{
     public static function resetRulesCache(): void;
 
     public function allRules(): Collection;

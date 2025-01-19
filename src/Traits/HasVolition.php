@@ -52,9 +52,9 @@ trait HasVolition
 
         return new Collection(
             $actions
-            ?->filter(fn (Action $action): bool => $action->enabled)
-            ->pluck('payload')
-            ->unique() ?? []
+                ?->filter(fn (Action $action): bool => $action->enabled)
+                ->pluck('payload')
+                ->unique() ?? []
         );
     }
 
