@@ -2,7 +2,7 @@
 
 namespace Squarebit\Volition\Traits;
 
-use Illuminate\Support\Collection;
+use Illuminate\Database\Eloquent\Collection;
 use Squarebit\Volition\Contracts\IsAction;
 use Squarebit\Volition\Exception\ActionMissingException;
 use Squarebit\Volition\Models\Action;
@@ -48,12 +48,14 @@ trait HasVolition
     {
         $actions = $forRule
             ? $this->rule($forRule)?->actions
-            : $this->rules()->pluck('actions')->flatten();
+            : new Collection($this->rules()->pluck('actions')->flatten());
 
-        return $actions
+        return new Collection(
+            $actions
             ?->filter(fn (Action $action): bool => $action->enabled)
             ->pluck('payload')
-            ->unique() ?? collect();
+            ->unique() ?? []
+        );
     }
 
     /**
