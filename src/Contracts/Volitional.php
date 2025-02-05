@@ -2,28 +2,29 @@
 
 namespace Squarebit\Volition\Contracts;
 
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection;
+use Illuminate\Database\Eloquent\Collection as DBCollection;
 use Squarebit\Volition\Models\Rule;
 
 interface Volitional
 {
     public static function resetRulesCache(): void;
 
-    public function allRules(): Collection;
+    public function allRules(?string $actionClass = null): DBCollection;
 
     /**
-     * @return Collection<\Squarebit\Volition\Models\Rule>
+     * @return Collection<Rule>
      */
-    public function rules(): Collection;
+    public function rules(?string $actionClass = null): DBCollection;
 
-    public function rule(string|Rule $rule): ?Rule;
+    public function rule(string|Rule $rule, ?string $actionClass = null): ?Rule;
 
     /**
      * Return all the ActionElements from all passing Rules
      *
-     * @return Collection<\Squarebit\Volition\Contracts\IsAction>
+     * @return Collection<IsAction>
      */
-    public function actions(string|Rule|null $forRule = null): Collection;
+    public function actions(string|Rule|null $forRule = null, ?string $actionClass = null): Collection;
 
     /**
      * @template TActionClass
@@ -34,7 +35,7 @@ interface Volitional
     public function action(string $ofClass, ?string $forRule = null, bool $throw = false): ?IsAction;
 
     /**
-     * @param  class-string<\Squarebit\Volition\Contracts\IsAction>  $actionClass
+     * @param  class-string<IsAction>  $actionClass
      */
     public function executeAction(string $actionClass, ?string $forRule = null, bool $throw = false): mixed;
 }

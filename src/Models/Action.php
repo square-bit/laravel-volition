@@ -8,6 +8,7 @@ use RuntimeException;
 use Squarebit\Volition\Contracts\IsAction;
 use Squarebit\Volition\Facades\Volition;
 use Squarebit\Volition\Traits\BelongToRule;
+use Throwable;
 
 class Action extends Element
 {
@@ -18,6 +19,9 @@ class Action extends Element
 
     protected $table = 'volition_actions';
 
+    /**
+     * @throws Throwable
+     */
     public function action(IsAction $action): static
     {
         throw_unless(

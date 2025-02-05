@@ -2,55 +2,71 @@
 
 namespace Squarebit\Volition\Traits;
 
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection;
+use Illuminate\Database\Eloquent\Collection as DBCollection;
 use Squarebit\Volition\Contracts\IsAction;
 use Squarebit\Volition\Exception\ActionMissingException;
 use Squarebit\Volition\Models\Action;
 use Squarebit\Volition\Models\Rule;
+use Throwable;
 
 trait HasVolition
 {
-    protected static ?Collection $allRules = null;
+    protected static ?DBCollection $allRules = null;
+    protected static array $rulesHavingAction = [];
 
     public static function resetRulesCache(): void
     {
         self::$allRules = null;
-    }
-
-    public function allRules(): Collection
-    {
-        return self::$allRules ??= Rule::with(['conditions', 'actions'])
-            ->forClass($this::class)
-            ->get();
+        self::$rulesHavingAction = [];
     }
 
     /**
-     * @return Collection<\Squarebit\Volition\Models\Rule>
+     * @param  class-string<IsAction>|null  $actionClass
+     * @return DBCollection
      */
-    public function rules(): Collection
+    public function allRules(?string $actionClass = null): DBCollection
     {
-        return $this->allRules()->filter->passes($this);
+        return $actionClass
+            ? self::$rulesHavingAction[$actionClass] ??= Rule::with(['conditions', 'actions'])
+                ->forClass($this::class)
+                ->whereHas('actions', fn($query) => $query
+                    ->where('enabled', true)
+                    ->where('payload->type', $actionClass::getElementType())
+                )
+                ->get()
+            : self::$allRules ??= Rule::with(['conditions', 'actions'])
+                ->forClass($this::class)
+                ->get();
     }
 
-    public function rule(string|Rule $rule): ?Rule
+    /**
+     * @return DBCollection<int, Rule>
+     */
+    public function rules(?string $actionClass = null): DBCollection
+    {
+        return $this->allRules($actionClass)->filter->passes($this);
+    }
+
+    public function rule(string|Rule $rule, ?string $actionClass = null): ?Rule
     {
         return $rule instanceof Rule
-            ? $this->rules()->where('id', $rule->id)->first()
-            : $this->rules()->where('name', $rule)->first();
+            ? $this->rules($actionClass)->where('id', $rule->id)->first()
+            : $this->rules($actionClass)->where('name', $rule)->first();
     }
 
     /**
      * Return all the ActionElements from all passing Rules
      *
-     * @return Collection<\Squarebit\Volition\Contracts\IsAction>
+     * @return Collection<IsAction>
      */
-    public function actions(string|Rule|null $forRule = null): Collection
+    public function actions(string|Rule|null $forRule = null, ?string $actionClass = null): Collection
     {
         $actions = $forRule
-            ? $this->rule($forRule)?->actions
-            : new Collection($this->rules()->pluck('actions')->flatten());
+            ? $this->rule($forRule, $actionClass)?->actions
+            : collect($this->rules($actionClass)->pluck('actions')->flatten());
 
-        return new Collection(
+        return collect(
             $actions
                 ?->filter(fn (Action $action): bool => $action->enabled)
                 ->pluck('payload')
@@ -63,10 +79,12 @@ trait HasVolition
      *
      * @param  class-string<TActionClass>  $ofClass
      * @return TActionClass|null
+     * @throws Throwable
      */
     public function action(string $ofClass, ?string $forRule = null, bool $throw = false): ?IsAction
     {
-        $action = $this->actions($forRule)->firstWhere(fn (IsAction $action) => $action instanceof $ofClass);
+        $action = $this->actions($forRule, $ofClass)
+            ->firstWhere(fn (IsAction $action) => $action instanceof $ofClass);
 
         throw_if(
             $action === null && $throw,
@@ -78,7 +96,8 @@ trait HasVolition
     }
 
     /**
-     * @param  class-string<\Squarebit\Volition\Contracts\IsAction>  $actionClass
+     * @param  class-string<IsAction>  $actionClass
+     * @throws Throwable
      */
     public function executeAction(string $actionClass, ?string $forRule = null, bool $throw = false): mixed
     {
