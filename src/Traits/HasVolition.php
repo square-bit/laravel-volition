@@ -2,8 +2,8 @@
 
 namespace Squarebit\Volition\Traits;
 
-use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Collection as DBCollection;
+use Illuminate\Support\Collection;
 use Squarebit\Volition\Contracts\IsAction;
 use Squarebit\Volition\Exception\ActionMissingException;
 use Squarebit\Volition\Models\Action;
@@ -13,6 +13,7 @@ use Throwable;
 trait HasVolition
 {
     protected static ?DBCollection $allRules = null;
+
     protected static array $rulesHavingAction = [];
 
     public static function resetRulesCache(): void
@@ -23,14 +24,13 @@ trait HasVolition
 
     /**
      * @param  class-string<IsAction>|null  $actionClass
-     * @return DBCollection
      */
     public function allRules(?string $actionClass = null): DBCollection
     {
         return $actionClass
             ? self::$rulesHavingAction[$actionClass] ??= Rule::with(['conditions', 'actions'])
                 ->forClass($this::class)
-                ->whereHas('actions', fn($query) => $query
+                ->whereHas('actions', fn ($query) => $query
                     ->where('enabled', true)
                     ->where('payload->type', $actionClass::getElementType())
                 )
@@ -79,6 +79,7 @@ trait HasVolition
      *
      * @param  class-string<TActionClass>  $ofClass
      * @return TActionClass|null
+     *
      * @throws Throwable
      */
     public function action(string $ofClass, ?string $forRule = null, bool $throw = false): ?IsAction
@@ -97,6 +98,7 @@ trait HasVolition
 
     /**
      * @param  class-string<IsAction>  $actionClass
+     *
      * @throws Throwable
      */
     public function executeAction(string $actionClass, ?string $forRule = null, bool $throw = false): mixed

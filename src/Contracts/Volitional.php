@@ -2,8 +2,8 @@
 
 namespace Squarebit\Volition\Contracts;
 
-use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Collection as DBCollection;
+use Illuminate\Support\Collection;
 use Squarebit\Volition\Models\Rule;
 
 interface Volitional
