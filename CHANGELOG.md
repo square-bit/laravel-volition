@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-volition` will be documented in this file.
 
+## Faker deprecation fix - 2026-11-07
+
+Factories call Faker formatters as methods, removing the Faker 1.14 property-access deprecation warnings.
+
 ## Filament v5 - 2026-02-09
 
 ### What's Changed
