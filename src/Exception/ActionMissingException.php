@@ -3,12 +3,14 @@
 namespace Squarebit\Volition\Exception;
 
 use Exception;
+use Squarebit\Volition\Contracts\IsAction;
+use Squarebit\Volition\Contracts\Volitional;
 
 class ActionMissingException extends Exception
 {
     /**
-     * @param  class-string<\Squarebit\Volition\Contracts\IsAction>  $actionClass
-     * @param  class-string<\Squarebit\Volition\Contracts\Volitional>  $objectClass
+     * @param  class-string<IsAction>  $actionClass
+     * @param  class-string<Volitional>  $objectClass
      */
     public function __construct(string $actionClass, string $objectClass)
     {

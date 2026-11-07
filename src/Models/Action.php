@@ -37,7 +37,7 @@ class Action extends Element
 
     /**
      * @param  Builder<static>  $query
-     * @param  class-string<\Squarebit\Volition\Contracts\IsAction>  $class
+     * @param  class-string<IsAction>  $class
      * @return Builder<static>
      */
     public function scopeForType(Builder $query, string $class): Builder
